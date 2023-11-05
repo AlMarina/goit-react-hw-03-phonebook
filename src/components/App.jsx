@@ -16,7 +16,6 @@ export class App extends Component {
     const contactsLs = localStorage.getItem(LSKEY);
     if (JSON.parse(contactsLs))
       this.setState({ contacts: JSON.parse(contactsLs) });
-    // this.setState({ contacts: JSON.parse(contacts) ?? [] });
   }
 
   componentDidUpdate(_, prevState) {
