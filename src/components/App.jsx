@@ -4,11 +4,25 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
+const LSKEY = 'contacts';
+
 export class App extends Component {
   state = {
     contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const contactsLs = localStorage.getItem(LSKEY);
+    if (JSON.parse(contactsLs))
+      this.setState({ contacts: JSON.parse(contactsLs) });
+    // this.setState({ contacts: JSON.parse(contacts) ?? [] });
+  }
+
+  componentDidUpdate(_, prevState) {
+    if (this.state.contacts !== prevState.contacts)
+      localStorage.setItem(LSKEY, JSON.stringify(this.state.contacts));
+  }
 
   addContact = data => {
     const { contacts } = this.state;
